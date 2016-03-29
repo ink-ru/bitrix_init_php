@@ -99,7 +99,7 @@ function GoogleBotDirective(&$content)
     return true;
 }
 
-function ChangeMyContent($content)
+function ChangeMyContent(&$content)
 {
     global $APPLICATION;
     $dir = $APPLICATION->GetCurDir();
