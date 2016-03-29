@@ -9,6 +9,14 @@ function FunctionName(params)
 }
 */
 
+define("PATH_TO_404", "/404.php");
+
+// AddEventHandler("main", "OnAfterEpilog", "SetSeoData");
+// AddEventHandler("main", "OnEpilog", "SetSeoData");
+// AddEventHandler("main", "OnEndBufferContent", "ChangeMyContent");
+// AddEventHandler("main", "OnEndBufferContent", "GoogleBotDirective");
+// AddEventHandler("main", "OnEpilog", "Redirect404");
+
 /**
 * Фунция для просмотра и отладки данных на сайте
 * $ar - параметр, принимающий любой тип данных для просмотра его содержания
@@ -89,6 +97,61 @@ function GoogleBotDirective(&$content)
     }
     
     return true;
+}
+
+function ChangeMyContent($content)
+{
+    global $APPLICATION;
+    $dir = $APPLICATION->GetCurDir();
+    $uri = $_SERVER['REQUEST_URI'];
+    if(empty($uri)) $uri = $APPLICATION->GetCurUri();
+
+    $content = str_replace("<head>", "<head><!-- Content rewriter enabled -->", $content);
+    $content = str_replace('<head>', '<head><!--origUrl="' . $$uri . '"-->' , $content);
+
+    if(empty($_GET['PAGEN_1']))
+    {
+    switch ($uri)
+    {
+
+	}
+
+	if(!empty($aSEOData['h1']))    $APPLICATION->SetTitle($aSEOData['h1']);
+	if(!empty($aSEOData['text_alt'])) $sContent = preg_replace('#(<div\s+[^>]*id\s*=\s*["\']call["\'][^>]*>)#siU', '<div class="wide_wraper"><div class="seo_txt">'.$aSEOData['text_alt']."</div></div>$1", $sContent
+}
+
+function SetSeoData()
+{
+    // TODO: перхватить и сбросить любой вывод
+
+    global $APPLICATION;
+    $dir = $APPLICATION->GetCurDir();
+    $uri = $APPLICATION->GetCurUri();
+    // $title = CMain::GetTitle();
+    $title = $APPLICATION->GetTitle();
+    $m_title = $APPLICATION->GetProperty("title");
+
+    $aSEOData['title'] = '';
+    $aSEOData['descr'] = '';
+    $aSEOData['keywr'] = '';
+    $aSEOData['h1'] = '';
+
+	switch ($uri)
+    {
+    			/*
+      case '':
+        $aSEOData['title'] = '';
+        $aSEOData['descr'] = '';
+        $aSEOData['keywr'] = '';
+		$aSEOData['h1'] = '';
+      break;
+*/
+    }
+    // Установка новых значений
+    if(!empty($aSEOData['title'])) $APPLICATION->SetPageProperty('title', $aSEOData['title']);
+    if(!empty($aSEOData['descr'])) $APPLICATION->SetPageProperty('description', $aSEOData['descr']);
+    if(!empty($aSEOData['keywr'])) $APPLICATION->SetPageProperty('keywords', mb_strtolower($aSEOData['keywr']));
+    if(!empty($aSEOData['h1']))    $APPLICATION->SetTitle($aSEOData['h1']);
 }
 
 ?>
