@@ -115,6 +115,19 @@ function ChangeMyContent(&$content)
     {
 
 	}
+	
+    // Генерирование
+    // Элементы навигационной цепочки
+
+    $breads = $APPLICATION->arAdditionalChain;
+    $first_section = $breads[3]['TITLE'];
+    $chain = $breads;
+    $last = array_pop($chain);
+    $last_title = $last['TITLE'];
+    $pre_last = array_pop($chain);
+    $pre_last_title = $pre_last['TITLE'];
+    
+    // код генерирования данных
 
 	if(!empty($aSEOData['h1']))    $APPLICATION->SetTitle($aSEOData['h1']);
 	if(!empty($aSEOData['text_alt'])) $sContent = preg_replace('#(<div\s+[^>]*id\s*=\s*["\']call["\'][^>]*>)#siU', '<div class="wide_wraper"><div class="seo_txt">'.$aSEOData['text_alt']."</div></div>$1", $sContent
