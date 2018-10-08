@@ -107,7 +107,7 @@ function ChangeMyContent(&$content)
     if(empty($uri)) $uri = $APPLICATION->GetCurUri();
 
     $content = str_replace("<head>", "<head><!-- Content rewriter enabled -->", $content);
-    $content = str_replace('<head>', '<head><!--origUrl="' . $$uri . '"-->' , $content);
+    $content = str_replace('<head>', '<head><!--origUrl="' . $uri . '"-->' , $content);
 
     if(empty($_GET['PAGEN_1']))
     {
